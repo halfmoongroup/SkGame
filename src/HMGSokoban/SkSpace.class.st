@@ -9,3 +9,8 @@ SkSpace class >> idString [
 
 	^ $ .
 ]
+
+{ #category : #testing }
+SkSpace >> canMove [ 
+	^true
+]
