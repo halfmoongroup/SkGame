@@ -28,8 +28,10 @@ SkGame class >> createLevel: aLevel [
 SkGame class >> findPlayer: instance [
 
 	instance rows do: [ :row | 
-		row elements do: [ :entity | 
-			entity class = SkPlayer ifTrue: [ instance playerEntity: entity ] ] ]
+		row elements do: [ :position | 
+			position entity isNotNil & (position entity class = SkPlayer) 
+				ifTrue: [ instance playerEntity: position entity ] ] ].
+	^ instance playerEntity
 ]
 
 { #category : #api }
@@ -62,47 +64,52 @@ SkGame >> move: aDirection [
 SkGame >> movePlayerDown [
 
 	| newx newy |
-	newx := self playerEntity x + 1 .
-	newy := self playerEntity y. 
+	newx := self playerEntity position x + 1 .
+	newy := self playerEntity position y. 
 	(self playerCanMoveNewX:newx newY:newy) ifTrue:[ self movePlayerX: newx Y:newy].
+	self display
 ]
 
 { #category : #accessing }
 SkGame >> movePlayerLeft [ 
 
 	| newx newy |
-	newx := self playerEntity x .
-	newy := self playerEntity y - 1. 
+	newx := self playerEntity position x .
+	newy := self playerEntity position y - 1. 
 	(self playerCanMoveNewX:newx newY:newy) ifTrue:[ self movePlayerX: newx Y:newy].
+	self display
 ]
 
 { #category : #accessing }
 SkGame >> movePlayerRight [
 
 	| newx newy |
-	newx := self playerEntity x .
-	newy := self playerEntity y +1. 
+	newx := self playerEntity position x  .
+	newy := self playerEntity position y +1. 
 	(self playerCanMoveNewX:newx newY:newy) ifTrue:[ self movePlayerX: newx Y:newy].
+	self display
 ]
 
 { #category : #accessing }
 SkGame >> movePlayerUp [
 
 	| newx newy |
-	newx := self playerEntity x -1 .
-	newy := self playerEntity y. 
+	newx := self playerEntity position x - 1 .
+	newy := self playerEntity position y. 
 	(self playerCanMoveNewX:newx newY:newy) ifTrue:[ self movePlayerX: newx Y:newy].
+	self display
 ]
 
 { #category : #accessing }
 SkGame >> movePlayerX: newX Y: newY [
 
-	| temp curx cury |
+	| src dest |
 	(self playerCanMoveNewX: newX newY: newY) ifFalse: [ ^ self ].
-	curx := self playerEntity x.
-	cury := self playerEntity y.
-	temp := self put: playerEntity atX: newX andY: newY.
-	self put: temp atX: curx andY: cury
+	src := self playerEntity position. 
+	dest := self entityAtX: newX andY: newY.
+	dest entity: (self playerEntity) .
+	src entity: nil. 
+	^src
 ]
 
 { #category : #'as yet unclassified' }

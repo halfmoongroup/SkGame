@@ -1,12 +1,12 @@
 Class {
-	#name : #SkShelf,
+	#name : #SkBox,
 	#superclass : #SkEntity,
 	#category : #HMGSokoban
 }
 
 { #category : #identity }
-SkShelf class >> idString [
+SkBox class >> idString [
 
-	^ $-.
+	^ $x.
 	
 ]

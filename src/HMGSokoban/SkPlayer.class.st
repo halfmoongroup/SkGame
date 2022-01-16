@@ -10,8 +10,3 @@ SkPlayer class >> idString [
 	^ $o.
 	
 ]
-
-{ #category : #testing }
-SkPlayer >> canMove [
-	^true
-]
