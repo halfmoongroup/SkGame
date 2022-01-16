@@ -6,7 +6,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'x',
-		'y'
+		'y',
+		'target'
 	],
 	#category : #HMGSokoban
 }
@@ -38,10 +39,27 @@ SkEntity >> canMove [
 	^false.
 ]
 
+{ #category : #initialization }
+SkEntity >> initialize [ 
+	target := false. 
+]
+
 { #category : #identity }
 SkEntity >> instanceId [
 
 	^ self class idString
+]
+
+{ #category : #accessing }
+SkEntity >> target [
+
+	^ target
+]
+
+{ #category : #accessing }
+SkEntity >> target: anObject [
+
+	target := anObject
 ]
 
 { #category : #accessing }
