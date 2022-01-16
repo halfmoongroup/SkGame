@@ -18,15 +18,21 @@ SkSpace class >> ids [
 
 { #category : #initialization }
 SkSpace class >> initializeWithId: anId atX: xpos andY: ypos [
-	| instance |
+	| instance  |
 	instance := self  new. 
-	^ instance initializeWithId: anId andX: xpos  andY: ypos.  
+	^ instance initializeWithId: anId andX: xpos  andY: ypos  
 ]
 
 { #category : #accessing }
 SkSpace >> acceptsEntity [
 
-	^ self isWall = false.
+	^ (self isWall not) & (self entity isNil).
+]
+
+{ #category : #testing }
+SkSpace >> canMove [ 
+	^ (self isWall not) & (self entity isNil)
+	
 ]
 
 { #category : #accessing }
@@ -38,13 +44,22 @@ SkSpace >> entity [
 { #category : #accessing }
 SkSpace >> entity: anObject [
 
-	entity := anObject
+	entity := anObject.
+	anObject ifNotNil: [anObject position: self].
+	^self
+]
+
+{ #category : #testing }
+SkSpace >> hasPlayer [
+
+	^ (self entity isNotNil) & ( self entity class = SkPlayer )
 ]
 
 { #category : #accessing }
 SkSpace >> id [
 
-	^ id
+	entity ifNotNil: [ ^entity id].
+	^id
 ]
 
 { #category : #accessing }
@@ -53,12 +68,23 @@ SkSpace >> id: anObject [
 	id := anObject
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 SkSpace >> initializeWithId: anId andX: xvalue andY: yvalue [
 
-	self id: anId; x: xvalue; y: yvalue. 
-	($+ = id ) ifTrue: [ ^self entity: (SkPlayer new);yourself].
-	($X = id ) ifTrue: [ ^self entity: (SkBox new);yourself]
+	self
+		id: anId;
+		x: xvalue;
+		y: yvalue.
+	SkPlayer idString = anId ifTrue: [ 
+		self id: Character space.
+		^ self
+			  entity: SkPlayer new;
+			  yourself ].
+	SkBox idString = anId ifFalse: [ ^ self ].
+	self id: Character space.
+	^ self
+		  entity: SkBox new;
+		  yourself
 ]
 
 { #category : #testing }

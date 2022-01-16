@@ -9,11 +9,16 @@ Class {
 
 { #category : #'as yet unclassified' }
 SkRow class >> rowFromString: aString forId: anIndex [
-	| instance count | 
+
+	| instance count |
 	count := 0.
-	instance := self new. 
-	instance elements:  (aString asOrderedCollection collect: [ :aChar | SkSpace  initializeWithId: aChar atX: anIndex andY: (count := count+1)]).
-	^instance
+	instance := self new.
+	instance elements: (aString asOrderedCollection collect: [ :aChar | 
+			 SkSpace
+				 initializeWithId: aChar
+				 atX: anIndex  
+				 andY: (count := count + 1) ]).
+	^ instance
 ]
 
 { #category : #accessing }
