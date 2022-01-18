@@ -1,7 +1,7 @@
 Class {
 	#name : #SkSpaceTest,
 	#superclass : #TestCase,
-	#category : #HMGSokoban
+	#category : #'HMGSokoban-test'
 }
 
 { #category : #'as yet unclassified' }

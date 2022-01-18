@@ -3,8 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'id',
-		'x',
-		'y',
+		'point',
 		'entity'
 	],
 	#category : #HMGSokoban
@@ -35,6 +34,12 @@ SkSpace >> canMove [
 	
 ]
 
+{ #category : #testing }
+SkSpace >> canPush [
+	^ (self isWall not) & (self entityIsBox)
+	
+]
+
 { #category : #accessing }
 SkSpace >> entity [
 
@@ -47,6 +52,12 @@ SkSpace >> entity: anObject [
 	entity := anObject.
 	anObject ifNotNil: [anObject position: self].
 	^self
+]
+
+{ #category : #identity }
+SkSpace >> entityIsBox [ 
+	
+	^(self entity notNil) & (self entity isBox)
 ]
 
 { #category : #testing }
@@ -87,19 +98,19 @@ SkSpace >> initializeWithId: anId andX: xvalue andY: yvalue [
 		  yourself
 ]
 
-{ #category : #testing }
+{ #category : #identity }
 SkSpace >> isSpace [ 
 	
 	^id = Character space. 
 ]
 
-{ #category : #testing }
+{ #category : #identity }
 SkSpace >> isTarget [
 
 	^id = $..
 ]
 
-{ #category : #testing }
+{ #category : #identity }
 SkSpace >> isWall [
 
 	^id = $#
@@ -108,23 +119,23 @@ SkSpace >> isWall [
 { #category : #accessing }
 SkSpace >> x [
 
-	^ x
+	^ point x
 ]
 
 { #category : #accessing }
-SkSpace >> x: anObject [
+SkSpace >> x: anInt [
 
-	x := anObject
+	point x: anInt
 ]
 
 { #category : #accessing }
 SkSpace >> y [
 
-	^ y
+	^ point y
 ]
 
 { #category : #accessing }
-SkSpace >> y: anObject [
+SkSpace >> y: anInt [
 
-	y := anObject
+	point y:  anInt
 ]

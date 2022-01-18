@@ -5,8 +5,6 @@ Class {
 	#name : #SkEntity,
 	#superclass : #Object,
 	#instVars : [
-		'x',
-		'y',
 		'target',
 		'position'
 	],
@@ -40,6 +38,12 @@ SkEntity >> canMove [
 	^false.
 ]
 
+{ #category : #testing }
+SkEntity >> canPush [
+
+^(self isBox )
+]
+
 { #category : #accessing }
 SkEntity >> id [
 
@@ -55,6 +59,11 @@ SkEntity >> initialize [
 SkEntity >> instanceId [
 
 	^ self class idString
+]
+
+{ #category : #testing }
+SkEntity >> isBox [ 
+ ^self class = SkBox 
 ]
 
 { #category : #accessing }
@@ -79,28 +88,4 @@ SkEntity >> target [
 SkEntity >> target: anObject [
 
 	target := anObject
-]
-
-{ #category : #accessing }
-SkEntity >> x [
-
-	^ x
-]
-
-{ #category : #accessing }
-SkEntity >> x: anObject [
-
-	x := anObject
-]
-
-{ #category : #accessing }
-SkEntity >> y [
-
-	^ y
-]
-
-{ #category : #accessing }
-SkEntity >> y: anObject [
-
-	y := anObject
 ]
