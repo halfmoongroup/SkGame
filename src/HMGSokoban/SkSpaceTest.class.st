@@ -29,3 +29,11 @@ SkSpaceTest >> testAcceptsPlayer [
 	self assert: space isSpace.
 	self assert: space acceptsEntity.
 ]
+
+{ #category : #tests }
+SkSpaceTest >> testInitialize [ 
+	| instance | 
+	instance := SkSpace new. 
+	self assert: instance x equals: 0.
+	self assert: instance y equals: 0. 
+]

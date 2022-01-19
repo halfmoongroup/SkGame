@@ -34,14 +34,6 @@ SkGame class >> findPlayer: instance [
 	^ instance playerEntity
 ]
 
-{ #category : #accessing }
-SkGame class >> move: position inDirection: direction [
-	( direction = 'u' ) ifTrue: [ ^ Point x: (1 + position x) y: (position y)].
-	( direction = 'd' ) ifTrue: [ ^ Point x: (position x)- 1  y: (position y)].
-	( direction = 'l' ) ifTrue: [ ^ Point x: (position x)     y: (1+position y)].
-	( direction = 'r' ) ifTrue: [ ^ Point x: (position x)     y: (position y)-1].
-]
-
 { #category : #api }
 SkGame >> display [
 
@@ -61,11 +53,25 @@ SkGame >> entityAtX: x andY:y [
 { #category : #accessing }
 SkGame >> move: aDirection [
 
+	| newPosition |
+	newPosition :=  self moveInDirection:  aDirection. 
+	 
 	aDirection = 'l' ifTrue: [ self movePlayerLeft ].
 	aDirection = 'r' ifTrue: [ self movePlayerRight ].
 	aDirection = 'u' ifTrue: [ self movePlayerUp ].
 	aDirection = 'd' ifTrue: [ self movePlayerDown ].
 	self display
+]
+
+{ #category : #accessing }
+SkGame >> moveInDirection: direction [
+	|position |
+	position := self playerEntity position. 
+	( direction = 'u' ) ifTrue: [ ^ Point x: (1 + position x) y: (position y)].
+	( direction = 'd' ) ifTrue: [ ^ Point x: (position x)- 1  y: (position y)].
+	( direction = 'l' ) ifTrue: [ ^ Point x: (position x)     y: (1+position y)].
+	( direction = 'r' ) ifTrue: [ ^ Point x: (position x)     y: (position y)-1].
+	^(-1 @ -1)
 ]
 
 { #category : #accessing }
@@ -81,7 +87,7 @@ SkGame >> movePlayerDown [
 	self display
 ]
 
-{ #category : #accessing }
+{ #category : #'as yet unclassified' }
 SkGame >> movePlayerLeft [ 
 
 	| newx newy |
@@ -125,6 +131,12 @@ SkGame >> movePlayerX: newX Y: newY [
 			]
 	].
 	^ src
+]
+
+{ #category : #'as yet unclassified' }
+SkGame >> playerCanMoveNewX: aPoint [
+
+	^ (self entityAtX: aPoint x andY: aPoint y) canMove
 ]
 
 { #category : #'as yet unclassified' }

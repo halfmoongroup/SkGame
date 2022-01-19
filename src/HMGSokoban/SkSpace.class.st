@@ -79,13 +79,18 @@ SkSpace >> id: anObject [
 	id := anObject
 ]
 
+{ #category : #initialization }
+SkSpace >> initialize [ 
+
+	super initialize. 
+	point := (0@0). 
+]
+
 { #category : #accessing }
 SkSpace >> initializeWithId: anId andX: xvalue andY: yvalue [
 
-	self
-		id: anId;
-		x: xvalue;
-		y: yvalue.
+	point := (xvalue @ yvalue).
+	id:= anId.
 	SkPlayer idString = anId ifTrue: [ 
 		self id: Character space.
 		^ self
