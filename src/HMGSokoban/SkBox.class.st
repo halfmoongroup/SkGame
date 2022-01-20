@@ -10,3 +10,9 @@ SkBox class >> idString [
 	^ $x.
 	
 ]
+
+{ #category : #testing }
+SkBox >> isBox [ 
+
+	^ true
+]

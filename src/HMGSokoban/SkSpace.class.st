@@ -3,8 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'id',
-		'x',
-		'y',
+		'point',
 		'entity'
 	],
 	#category : #HMGSokoban
@@ -35,6 +34,12 @@ SkSpace >> canMove [
 	
 ]
 
+{ #category : #testing }
+SkSpace >> canPush [
+	^ (self isWall not) & (self entityIsBox)
+	
+]
+
 { #category : #accessing }
 SkSpace >> entity [
 
@@ -47,6 +52,12 @@ SkSpace >> entity: anObject [
 	entity := anObject.
 	anObject ifNotNil: [anObject position: self].
 	^self
+]
+
+{ #category : #identity }
+SkSpace >> entityIsBox [ 
+	
+	^(self entity notNil) & (self entity isBox)
 ]
 
 { #category : #testing }
@@ -68,13 +79,18 @@ SkSpace >> id: anObject [
 	id := anObject
 ]
 
+{ #category : #initialization }
+SkSpace >> initialize [ 
+
+	super initialize. 
+	point := (0@0). 
+]
+
 { #category : #accessing }
 SkSpace >> initializeWithId: anId andX: xvalue andY: yvalue [
 
-	self
-		id: anId;
-		x: xvalue;
-		y: yvalue.
+	point := (xvalue @ yvalue).
+	id:= anId.
 	SkPlayer idString = anId ifTrue: [ 
 		self id: Character space.
 		^ self
@@ -87,19 +103,19 @@ SkSpace >> initializeWithId: anId andX: xvalue andY: yvalue [
 		  yourself
 ]
 
-{ #category : #testing }
+{ #category : #identity }
 SkSpace >> isSpace [ 
 	
 	^id = Character space. 
 ]
 
-{ #category : #testing }
+{ #category : #identity }
 SkSpace >> isTarget [
 
 	^id = $..
 ]
 
-{ #category : #testing }
+{ #category : #identity }
 SkSpace >> isWall [
 
 	^id = $#
@@ -108,23 +124,23 @@ SkSpace >> isWall [
 { #category : #accessing }
 SkSpace >> x [
 
-	^ x
+	^ point x
 ]
 
 { #category : #accessing }
-SkSpace >> x: anObject [
+SkSpace >> x: anInt [
 
-	x := anObject
+	point x: anInt
 ]
 
 { #category : #accessing }
 SkSpace >> y [
 
-	^ y
+	^ point y
 ]
 
 { #category : #accessing }
-SkSpace >> y: anObject [
+SkSpace >> y: anInt [
 
-	y := anObject
+	point y:  anInt
 ]

@@ -1,7 +1,7 @@
 Class {
 	#name : #SkSpaceTest,
 	#superclass : #TestCase,
-	#category : #HMGSokoban
+	#category : #'HMGSokoban-test'
 }
 
 { #category : #'as yet unclassified' }
@@ -28,4 +28,12 @@ SkSpaceTest >> testAcceptsPlayer [
 	space := SkSpace initializeWithId:  Character space  atX:1  andY:1. 
 	self assert: space isSpace.
 	self assert: space acceptsEntity.
+]
+
+{ #category : #tests }
+SkSpaceTest >> testInitialize [ 
+	| instance | 
+	instance := SkSpace new. 
+	self assert: instance x equals: 0.
+	self assert: instance y equals: 0. 
 ]

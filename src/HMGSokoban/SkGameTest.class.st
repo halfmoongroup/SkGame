@@ -1,7 +1,7 @@
 Class {
 	#name : #SkGameTest,
 	#superclass : #TestCase,
-	#category : #HMGSokoban
+	#category : #'HMGSokoban-test'
 }
 
 { #category : #tests }
